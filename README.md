@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FauxPas — cultural risk scanner for brands
 
-## Getting Started
+Agentic due-diligence for market entry. Enter a brand and a target market; get an
+explainable cultural risk dossier: composite score, embrace/reject segment map,
+red flags with evidence, concrete mitigations.
 
-First, run the development server:
+Built for the [Qloo Agentic Hackathon](https://qloo.devpost.com/) ($25,000).
+Deadline: Oct 30, 2026.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## The idea
+
+Brands expanding into new markets get blindsided by cultural mismatch. FauxPas
+stress-tests a brand against a market's taste profile and hands over the risk
+dossier before launch spend. This is computation over the taste graph, not a
+recommendation chatbot: every number traces to affinity deltas
+(`market affinity − brand affinity`), and the evidence ledger ships with every
+dossier.
+
+## Architecture
+
+```
+app/
+  page.tsx            landing — the product story
+  dashboard/          dossier archive (dense data table)
+  scan/new/           brand + market intake form
+  scan/[id]/         the risk dossier
+  methodology/       how scoring works, limits
+  api/scans/         list + create (runs the full pipeline)
+lib/
+  qloo/qloo-client.ts  QlooClient interface + MockQlooClient + Phase 2 wiring docs
+  risk/risk-engine.ts  deterministic, explainable scoring — no black boxes
+  db/db.ts            dependency-free JSON prototype store (signatures kept for DB swap)
+  types.ts            domain types
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Run it
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev    # http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Seeded with three example dossiers so the demo works instantly:
+sneaker brand → Tokyo, coffee chain → Riyadh, fashion house → São Paulo.
 
-## Learn More
+## Wiring the real Qloo API (Phase 2)
 
-To learn more about Next.js, take a look at the following resources:
+No API key exists yet. Request one via the Google Form linked from
+[docs.qloo.com](https://docs.qloo.com) ("Getting your API key"), then:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Implement `RealQlooClient implements QlooClient` in `lib/qloo/real-client.ts`.
+   Confirm the live base URL and auth scheme in the current docs.qloo.com
+   reference before hardcoding anything.
+2. Set `QLOO_API_KEY` in the environment.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`getQlooClient()` throws loudly if the key is set but no real client exists —
+it will never silently serve mock data as production data.
 
-## Deploy on Vercel
+## Hackathon submission checklist
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [x] Public repo with MIT license
+- [ ] Hosted demo URL (deploy)
+- [ ] Text description on Devpost
+- [ ] "Join Hackathon" tapped on qloo.devpost.com
+- [ ] Real Qloo API key + wiring
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+MIT

@@ -1,26 +1,80 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-canvas: #0b0c0e;
+  --color-panel: #121418;
+  --color-panel2: #171a1f;
+  --color-hairline: #262b33;
+  --color-ink: #ece7d9;
+  --color-inkdim: #a9a294;
+  --color-inkfaint: #6e6a5e;
+  --color-risk: #e5484d;
+  --color-caution: #d9a441;
+  --color-clear: #43a47c;
+  --color-stamp: #c8bfa9;
+
+  --font-display: "Newsreader", Georgia, serif;
+  --font-sans: "Archivo", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--color-canvas);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #e5484d;
+  color: #0b0c0e;
+}
+
+/* Dossier furniture */
+.micro-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-inkfaint);
+}
+
+.rule {
+  border-top: 1px solid var(--color-hairline);
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Verdict seal */
+.seal {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  border: 1px solid currentColor;
+  padding: 0.4rem 0.9rem;
+  font-size: 12px;
+  display: inline-block;
+}
+
+/* Focus visibility — never remove focus rings */
+:focus-visible {
+  outline: 2px solid var(--color-stamp);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

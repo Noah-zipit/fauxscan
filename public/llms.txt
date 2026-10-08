@@ -1,0 +1,12 @@
+# FauxPas
+
+Cultural risk intelligence for market entry. An agentic due-diligence desk:
+enter a brand and a target market, receive an explainable risk dossier.
+
+- Dossiers: composite risk score (0-100, banded LOW/GUARDED/ELEVATED/SEVERE),
+  embrace/reject segment map, red flags with evidence, concrete mitigations.
+- Method: per-dimension affinity deltas (market affinity minus brand affinity)
+  from taste-graph data; deterministic flag rules; no black-box scores.
+- Stack: Next.js 16, TypeScript, Tailwind v4. Prototype JSON store.
+- Status: prototype running on mock taste data; production wiring documented
+  in lib/qloo/qloo-client.ts.
