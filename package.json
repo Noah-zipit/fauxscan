@@ -22,5 +22,13 @@
     "eslint-config-next": "16.4.0",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "description": "FauxPas \u2014 agentic cultural risk scanner for brands entering new markets. Qloo Agentic Hackathon entry.",
+  "author": "Ashar Qaisar",
+  "keywords": [
+    "cultural-fit",
+    "market-intelligence",
+    "qloo",
+    "nextjs"
+  ]
 }
